@@ -11,15 +11,39 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         char[] input = scanner.nextLine().toCharArray();
-
-        for (int i = 0; i < input.length; i += 3) {
-            int range = random.nextInt(Math.min(3, input.length - i));
-
-            input[i + range] = getRandomAlphaNum();
-        }
-
+        // 평문 정보
         System.out.println(input);
 
+        // expand each character
+        char[] expandedInput = getExpendInput(input);
+
+        System.out.println(expandedInput);
+
+        // 3자리마다 문자를 바꾼다
+        for (int i = 0; i < expandedInput.length; i += 3) {
+            int range = random.nextInt(Math.min(3, expandedInput.length - i));
+
+            expandedInput[i + range] = getRandomAlphaNum();
+        }
+
+        System.out.println(expandedInput);
+
+        // 복호화된 정보
+        System.out.println(input);
+
+    }
+
+    private static char[] getExpendInput(char[] input) {
+        char[] expandInput = new char[input.length * 3];
+
+        int index = 0;
+        for (char c : input) {
+            expandInput[index++] = c;
+            expandInput[index++] = c;
+            expandInput[index++] = c;
+        }
+
+        return expandInput;
     }
 
     private static String encrypt(String substring) {
